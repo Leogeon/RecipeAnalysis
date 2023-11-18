@@ -89,7 +89,6 @@ From our scatterplot, we see that as we increase the number of stars, the amount
 # Interesting Aggregates <a name="bivariateanalysis"></a>
 
 | rating   |    Mean Minutes |   Median Minutes |   Standard Deviation |    Recipe Count |
-|:————|—————————:|—————————-:|———————————:|—————-———:|
 | 1            | 99.672474 | 40 |  454.664734 | 2870  |
 | 2           | 98.021537 | 40 |  383.093263 | 2368 |
 | 3           | 87.497630 | 40 |  579.985847 | 7172 |
