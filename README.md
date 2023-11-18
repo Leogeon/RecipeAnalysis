@@ -1,6 +1,10 @@
 # RecipeAnalysis
 UCSD DSC80 project 
 
-# H1
-## H2
-### H3
+### Cleaning and EDA
+
+
+### Assessment of Missingness
+
+
+### Hypothesis Testing
