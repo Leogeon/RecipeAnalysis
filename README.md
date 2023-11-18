@@ -68,10 +68,23 @@ Now that we have a cleaned data frame, we drop all of the columns that we do not
 
 # Univariate Analysis <a name="univariateanalysis"></a>
 <iframe src="assets/fig_rating.html" width=800 height=600 frameBorder=0></iframe>
+
+Here we can see a bar graph of the ratings, what we notice is that very few people gave one, two, or three-star ratings, and of the remaining reviews, a little bit more than 80% of the reviews were five-star reviews. 
+
 <iframe src="assets/fig_minutes.html" width=800 height=600 frameBorder=0></iframe>
+
+The histogram that represents the distribution of cooking times, in minutes, for recipes on a logarithmic scale. Most of the data is concentrated in the lower end of the scale, indicating that the majority of recipes have shorter cooking times.
+
+
 # Bivariate Analysis <a name="Bivariate Analysis"></a>
+
 <iframe src="assets/box_plot.html" width=800 height=600 frameBorder=0></iframe>
+
+From our BoxPlot we can see that most reviews, regardless of rating, have a very similar amount of minutes required for the recipe. However, we notice that there are more outliers with four and five-star rating reviews. 
+
 <iframe src="assets/scatter_plot.html" width=800 height=600 frameBorder=0></iframe>
+
+From our scatterplot, we see that as we increase the number of stars, the amount of minutes a recipe takes gets wider (except from one start to two). This is especially true for five-star reviews which seem to have the largest variety of how long it takes. 
 
 # Interesting Aggregates <a name="bivariateanalysis"></a>
 
