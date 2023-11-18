@@ -1,5 +1,5 @@
 # RecipeAnalysis
-UCSD DSC80 project 
+**Authors**: [Wenbin Jiang](https://github.com/Leogeon), [Jevan Chahal](https://github.com/JevanC)
 
 # Table of Contents
 - [Introduction](#introduction)
@@ -48,9 +48,9 @@ Our research question that we will be answering is: how does the length of time 
 
 # Data Cleaning <a name="datacleaning"></a>
 
-Before we analyze the data we must first clean it and make it ready for analysis. The first step is to merge our two DataFrames into one. Both of them share the column for the recipe ID, so we decided on that column, leaving us with a big data frame with both the recipe information and the reviews. 
+Before we analyze the data we must first clean it and make it ready for analysis. The first step is to merge our two DataFrames into one. Both of them shared the column for the recipe ID, so we decided on that column, leaving us with a big data frame with both the recipe information and the reviews. 
 
-The next step in our cleaning process is to fill all of the 0's in our rating section with NaN's, the reason being, 0 stars do not exist on food.com, rather in gets filled as 0 if the user doesn't fill out that part of the form. This matters as many statistics can not be correctly calculated unless we exclude these 0's from our data and the best way to do that is to make them NaN. 
+The next step in our cleaning process is to fill all of the 0's in our rating section with NaN's, the reason being, 0 stars do not exist on food.com, rather it gets filled as 0 if the user doesn't fill out that part of the form. This matters as many statistics can not be correctly calculated unless we exclude these 0's from our data and the best way to do that is to make them NaN. 
 
 The last step is to add a column called ratings per recipe, we do this by taking the average rating of a recipe and then adding that value to every instance that the recipe was reviewed.
 
@@ -94,7 +94,9 @@ From our scatterplot, we see that as we increase the number of stars, the amount
 | 2           | 98.021537 | 40 |  383.093263 | 2368 |
 | 3           | 87.497630 | 40 |  579.985847 | 7172 |
 | 4            | 91.585038 | 35 |  1688.647502 | 37307 |
-| 4            | 94.534319 | 35 |  1000.087548 | 169674 |
+| 5            | 94.534319 | 35 |  1000.087548 | 169674 |
+
+From this pivot table, we are better able to understand the relationship that minutes and ratings share. We can see that on average amount of time it takes for a recipe is slightly higher in lower star ratings, however, what we also notice is that the standard deviation of minutes is significantly higher for four and five-star reviews.
 
 # NMAR Analysis <a name="NMAR Analysis"></a>
 
