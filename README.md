@@ -20,7 +20,34 @@ The data we receive is split into two different DataFrames. Our first data frame
 Our second data frame is called interactions and it contains 731927 rows and 5 columns: user_id, recipe_id, date, rating, and review. Interactions contain each review left by users. Of note, the important columns are going to be recipe_id so we can merge it with our recipes DataFrame and rating as that column is also essential to answering our research question. 
 
 Our research question that we will be answering is: how does the length of time required to make a recipe impact the distribution of rating it receives? 
+
+### recipes dataframe contains (83782 rows):
+
+|    Column  |  Desciption |
+|-----------:|------------:|
+|    'name' |       Recipe name |
+|     'id' |       Recipe ID |
+|      'minutes' |       Minutes to prepare recipe |
+|     'submitted' |      User ID who submitted this recipe |
+| 'tags' |      Food.com tags for recipe |
+|     'nutrition' |      Nutrition information in this form [calries (#), total fat (PDV), sugar (PDV), sodium (PDV), protein (PDV), saturated fat (PDV), carbohydrates (PDV)]; PDV stands for “percentage of daily value” |
+|     'n_steps' |      Number of steps in the recipe |
+|    'steps' |      Step by step instructions to follow |
+|     'description' |      A description of what the recipe makes |
+
+### reviews dataframe contains (731927 rows):
+
+|    Column  |  Desciption |
+|-----------:|------------:|
+|    'user_id' |       User ID |
+|     'recipe_id' |       Recipe ID |
+|      'date' |       Date of interaction|
+|     'rating' |      Rating (1-5) |
+| 'review' |      Review text |
+
+
 # Data Cleaning <a name="datacleaning"></a>
+
 Before we analyze the data we must first clean it and make it ready for analysis. The first step is to merge our two DataFrames into one. Both of them shared the column for the recipe ID, so we decided on that column, leaving us with a big data frame with both the recipe information and the reviews. 
 
 The next step in our cleaning process is to fill all of the 0's in our rating section with NaN's, the reason being, that 0 stars do not exist on food.com, rather it gets filled as 0 if the user doesn't fill out that part of the form. This matters as many statistics can not be correctly calculated unless we exclude these 0's from our data and the best way to do that is to make them NaN. 
@@ -28,6 +55,17 @@ The next step in our cleaning process is to fill all of the 0's in our rating se
 The last step is to add a column called ratings per recipe, this column is going to be assigned to every recipe and is the the overall mean of that particular recipe. 
 
 Now that we have a cleaned data frame, we drop all of the columns that we do not need, leaving us with just the column's id, minutes, rating, and ratings per recipe. We need ID to differentiate every recipe, minutes and ratings are both of the variables that we will be examining, and we keep rating per recipe as a way to fill in missing values in our rating.
+
+### Data frame after cleaning: 
+
+|    Column  |  Desciption |
+|-----------:|------------:|
+|    'name' |       name of recipe |
+|     'id' |       Recipe ID |
+|      'minutes' |       time required for recipe|
+|     'rating' |      Rating (1-5) |
+| 'review' |      Review text |
+
 # Univariate Analysis <a name="univariateanalysis"></a>
 <iframe src="assets/fig_rating.html" width=800 height=600 frameBorder=0></iframe>
 <iframe src="assets/fig_minutes.html" width=800 height=600 frameBorder=0></iframe>
@@ -38,6 +76,28 @@ Now that we have a cleaned data frame, we drop all of the columns that we do not
 # Hypothesis Testing <a name="hypothesistesting"></a>
 # NMAR Analysis <a name="NMAR Analysis"></a>
 # Missingness Dependency <a name="missingnessdependency"></a>
+
+## 'minutes' (Numeric Column):
+Original Difference in Means: 51.45
+Average Difference in Means from Permutations: -2.09
+P-value: 0.101
+Interpretation:
+
+The original difference in the means of 'minutes' between the groups (where 'rating' is missing and where it's not) is 51.45.
+However, the average difference obtained from the permutation test is -2.09, which indicates that such a difference could occur by chance.
+The p-value of 0.101 suggests that the observed difference is not statistically significant at a typical alpha level of 0.05. This implies that there is not enough evidence to conclude that the missingness in the 'rating' column depends on the 'minutes' column.
+
+## 'contributor_id' (Categorical Column):
+Original Difference in Proportions: 17,338,796.68
+Average Difference in Proportions from Permutations: -40,884.52
+P-value: 0.0
+Interpretation:
+
+The original difference in proportions for the 'contributor_id' is extremely high compared to the average difference obtained from the permutation test.
+The p-value of 0.0 is highly significant, indicating that the observed difference is extremely unlikely to have occurred by chance.
+This result suggests a strong dependency of the missingness in the 'rating' column on the 'contributor_id' column. In other words, the likelihood of a rating being missing seems to be related to which contributor submitted the recipe.
+In summary, while there appears to be no significant relationship between the missingness in 'rating' and the 'minutes' column, there is a significant relationship between the missingness in 'rating' and the 'contributor_id' column. This insight can be particularly useful for understanding the patterns and potential biases in your data collection or entry process.
+
 # Hypothesis Testing <a name="Hypothesis Testing"></a>
 Our area of focus for this data set is to find the relationship between the cooking time and the rating that the recipe receives.
 
