@@ -39,4 +39,24 @@ Now that we have a cleaned data frame, we drop all of the columns that we do not
 # NMAR Analysis <a name="NMAR Analysis"></a>
 # Missingness Dependency <a name="missingnessdependency"></a>
 # Hypothesis Testing <a name="Hypothesis Testing"></a>
+Our area of focus for this data set is to find the relationship between the cooking time and the rating that the recipe receives.
+
+To answer this question, we compared the ratings of recipes that took longer compared to those that required a shorter amount of time. We found that the median time of recipes was 35 minutes and thus categorized recipes  as long if they took longer than 35 minutes (not inclusive), and short if they took less (inclusive). We will conduct a permutation test.
+
+Null Hypothesis H0: Both long and short recipes receive the same scale of ratings.
+
+Alternative Hypothesis H1: The time it takes to make a recipe changes the ratings that it receives. 
+
+Test Statistic: We decided to use the Kolmogorov-Smirnov test, as it paints a better picture of what ratings a recipe receives. This is important because even if the means of two data sets are the same, does not mean that the ratings it receive are the same, the Kolmogorov-Smirnov test is designed to detect if the distribution of the sets is different.
+
+Observed Kolmogorov-Smirnov test: 
+
+HISTOGRAM GOES HERE
+
+We ran a permutation 10,000 times, the red line signifies the Observed Kolmogorov-Smirnov test result. We also decided to have the significance level be 0.05
+
+Hypothesis Test Conclusion
+The p-value for the testing is 0.0, because that is lower than our significance threshold of 0.05, we can reject the null hypothesis. 
+
+The reason this might be the case is that recipes take longer to make and require more investment, thus when a person is done, they are more likely to hold an opinion of the dish that is more extreme compared to a person who just got done making a shorter time required recipe. 
 # Conclusion <a name="conclusion"></a>
