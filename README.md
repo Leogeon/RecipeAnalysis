@@ -48,13 +48,13 @@ Our research question that we will be answering is: how does the length of time 
 
 # Data Cleaning <a name="datacleaning"></a>
 
-Before we analyze the data we must first clean it and make it ready for analysis. The first step is to merge our two DataFrames into one. Both of them shared the column for the recipe ID, so we decided on that column, leaving us with a big data frame with both the recipe information and the reviews. 
+Before we analyze the data we must first clean it and make it ready for analysis. The first step is to merge our two DataFrames into one. Both of them share the column for the recipe ID, so we decided on that column, leaving us with a big data frame with both the recipe information and the reviews. 
 
-The next step in our cleaning process is to fill all of the 0's in our rating section with NaN's, the reason being, that 0 stars do not exist on food.com, rather it gets filled as 0 if the user doesn't fill out that part of the form. This matters as many statistics can not be correctly calculated unless we exclude these 0's from our data and the best way to do that is to make them NaN. 
+The next step in our cleaning process is to fill all of the 0's in our rating section with NaN's, the reason being, 0 stars do not exist on food.com, rather in gets filled as 0 if the user doesn't fill out that part of the form. This matters as many statistics can not be correctly calculated unless we exclude these 0's from our data and the best way to do that is to make them NaN. 
 
-The last step is to add a column called ratings per recipe, this column is going to be assigned to every recipe and is the the overall mean of that particular recipe. 
+The last step is to add a column called ratings per recipe, we do this by taking the average rating of a recipe and then adding that value to every instance that the recipe was reviewed.
 
-Now that we have a cleaned data frame, we drop all of the columns that we do not need, leaving us with just the column's id, minutes, rating, and ratings per recipe. We need ID to differentiate every recipe, minutes and ratings are both of the variables that we will be examining, and we keep rating per recipe as a way to fill in missing values in our rating.
+Now that we have a cleaned data frame, we drop all of the columns that we do not need, leaving us with just the column's id, minutes, rating, and ratings per recipe. We need id to differentiate every recipe, minutes and ratings are both of the variables that we will be examining. We also remove an entry that takes longer than a million minutes, as it seems to be a joke recipe rather than an actual one.
 
 ### Data frame after cleaning: 
 
@@ -88,9 +88,17 @@ From our scatterplot, we see that as we increase the number of stars, the amount
 
 # Interesting Aggregates <a name="bivariateanalysis"></a>
 
+| rating   |    Mean Minutes |   Median Minutes |   Standard Deviation |    Recipe Count |
+|:————|—————————:|—————————-:|———————————:|—————-———:|
+| 1            | 99.672474 | 40 |  454.664734 | 2870  |
+| 2           | 98.021537 | 40 |  383.093263 | 2368 |
+| 3           | 87.497630 | 40 |  579.985847 | 7172 |
+| 4            | 91.585038 | 35 |  1688.647502 | 37307 |
+| 4            | 94.534319 | 35 |  1000.087548 | 169674 |
+
 # NMAR Analysis <a name="NMAR Analysis"></a>
 
-State whether you believe there is a column in your dataset that is NMAR. Explain your reasoning and any additional data you might want to obtain that could explain the missingness (thereby making it MAR). Make sure to explicitly use the term “NMAR.”
+The 'rating' column in the dataset likely exhibits NMAR (Not Missing At Random) characteristics, as the absence of a rating (originally recorded as zero and replaced with NaN) could be influenced by users' dissatisfaction with the recipe, implying that the missingness is related to the unobserved rating itself. To better understand this missingness and potentially shift it to MAR (Missing At Random), additional data such as user feedback on why they chose not to rate, or detailed interaction data like time spent on the recipe page, would be invaluable. This data could reveal whether the absence of a rating is due to factors observable in the data, like recipe complexity, rather than the unobserved quality of the recipe.
 
 # Missingness Dependency <a name="missingnessdependency"></a>
 
