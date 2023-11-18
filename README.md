@@ -21,9 +21,9 @@ Our second data frame is called interactions and it contains 731927 rows and 5 c
 
 Our research question that we will be answering is: how does the length of time required to make a recipe impact the distribution of rating it receives? 
 
-### recipes dataframe contains (83782 rows):
+### recipes data frame contains (83782 rows):
 
-|    Column  |  Desciption |
+|    Column  |  Description |
 |-----------:|------------:|
 |    'name' |       Recipe name |
 |     'id' |       Recipe ID |
@@ -32,12 +32,12 @@ Our research question that we will be answering is: how does the length of time 
 | 'tags' |      Food.com tags for recipe |
 |     'nutrition' |      Nutrition information in this form [calries (#), total fat (PDV), sugar (PDV), sodium (PDV), protein (PDV), saturated fat (PDV), carbohydrates (PDV)]; PDV stands for “percentage of daily value” |
 |     'n_steps' |      Number of steps in the recipe |
-|    'steps' |      Step by step instructions to follow |
+|    'steps' |      Step-by-step instructions to follow |
 |     'description' |      A description of what the recipe makes |
 
-### reviews dataframe contains (731927 rows):
+### reviews data frame contains (731927 rows):
 
-|    Column  |  Desciption |
+|    Column  |  Description |
 |-----------:|------------:|
 |    'user_id' |       User ID |
 |     'recipe_id' |       Recipe ID |
@@ -58,7 +58,7 @@ Now that we have a cleaned data frame, we drop all of the columns that we do not
 
 ### Data frame after cleaning: 
 
-|    Column  |  Desciption |
+|    Column  |  Description |
 |-----------:|------------:|
 |    'name' |       name of recipe |
 |     'id' |       Recipe ID |
@@ -72,9 +72,13 @@ Now that we have a cleaned data frame, we drop all of the columns that we do not
 # Bivariate Analysis <a name="Bivariate Analysis"></a>
 <iframe src="assets/box_plot.html" width=800 height=600 frameBorder=0></iframe>
 <iframe src="assets/scatter_plot.html" width=800 height=600 frameBorder=0></iframe>
+
 # Interesting Aggregates <a name="bivariateanalysis"></a>
-# Hypothesis Testing <a name="hypothesistesting"></a>
+
 # NMAR Analysis <a name="NMAR Analysis"></a>
+
+State whether you believe there is a column in your dataset that is NMAR. Explain your reasoning and any additional data you might want to obtain that could explain the missingness (thereby making it MAR). Make sure to explicitly use the term “NMAR.”
+
 # Missingness Dependency <a name="missingnessdependency"></a>
 
 ## 'minutes' (Numeric Column):
@@ -111,12 +115,12 @@ Test Statistic: We decided to use the Kolmogorov-Smirnov test, as it paints a be
 
 Observed Kolmogorov-Smirnov test: 
 
-HISTOGRAM GOES HERE
+<iframe src="assets/fig.html" width=800 height=600 frameBorder=0></iframe>
 
 We ran a permutation 10,000 times, the red line signifies the Observed Kolmogorov-Smirnov test result. We also decided to have the significance level be 0.05
 
-Hypothesis Test Conclusion
+# Conclusion <a name="conclusion"></a>
+
 The p-value for the testing is 0.0, because that is lower than our significance threshold of 0.05, we can reject the null hypothesis. 
 
 The reason this might be the case is that recipes take longer to make and require more investment, thus when a person is done, they are more likely to hold an opinion of the dish that is more extreme compared to a person who just got done making a shorter time required recipe. 
-# Conclusion <a name="conclusion"></a>
