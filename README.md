@@ -50,17 +50,16 @@ Our research question that we will be answering is: how does the length of time 
 
 Before we analyze the data we must first clean it and make it ready for analysis. The first step is to merge our two DataFrames into one. Both of them shared the column for the recipe ID, so we decided on that column, leaving us with a big data frame with both the recipe information and the reviews. 
 
-The next step in our cleaning process is to fill all of the 0's in our rating section with NaN's, the reason being, 0 stars do not exist on food.com, rather it gets filled as 0 if the user doesn't fill out that part of the form. This matters as many statistics can not be correctly calculated unless we exclude these 0's from our data and the best way to do that is to make them NaN. 
+The next step in our cleaning process is to fill all of the 0's in our rating section with NaN's, the reason being, that 0 stars do not exist on food.com, rather it gets filled as 0 if the user doesn't fill out that part of the form. This matters as many statistics can not be correctly calculated unless we exclude these 0's from our data and the best way to do that is to make them NaN. 
 
 The last step is to add a column called ratings per recipe, we do this by taking the average rating of a recipe and then adding that value to every instance that the recipe was reviewed.
 
-Now that we have a cleaned data frame, we drop all of the columns that we do not need, leaving us with just the column's id, minutes, rating, and ratings per recipe. We need id to differentiate every recipe, minutes and ratings are both of the variables that we will be examining. We also remove an entry that takes longer than a million minutes, as it seems to be a joke recipe rather than an actual one.
+Now that we have a cleaned data frame, we drop all of the columns that we do not need, leaving us with just the column's ID, minutes, rating, and ratings per recipe. We need ID to differentiate every recipe, minutes and ratings are both of the variables that we will be examining. We also remove an entry that takes longer than a million minutes, as it seems to be a joke recipe rather than an actual one.
 
 ### Data frame after cleaning: 
 
 |    Column  |  Description |
 |-----------:|------------:|
-|    'name' |       name of recipe |
 |     'id' |       Recipe ID |
 |      'minutes' |       time required for recipe|
 |     'rating' |      Rating (1-5) |
