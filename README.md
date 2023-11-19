@@ -75,7 +75,7 @@ Here we can see a bar graph of the ratings, what we notice is that very few peop
 The histogram that represents the distribution of cooking times, in minutes, for recipes on a logarithmic scale. Most of the data is concentrated in the lower end of the scale, indicating that the majority of recipes have shorter cooking times.
 
 
-# Bivariate Analysis <a name="Bivariate Analysis"></a>
+# Bivariate Analysis <a name="bivariateanalysis"></a>
 
 <iframe src="assets/box_plot.html" width=800 height=600 frameBorder=0></iframe>
 
@@ -85,7 +85,7 @@ From our BoxPlot we can see that most reviews, regardless of rating, have a very
 
 From our scatterplot, we see that as we increase the number of stars, the amount of minutes a recipe takes gets wider (except from one start to two). This is especially true for five-star reviews which seem to have the largest variety of how long it takes. 
 
-# Interesting Aggregates <a name="bivariateanalysis"></a>
+# Interesting Aggregates <a name="interestingaggregates"></a>
 
 | rating   |    Mean Minutes |   Median Minutes |   Standard Deviation |    Recipe Count |
 | 1            | 99.672474 | 40 |  454.664734 | 2870  |
@@ -96,7 +96,7 @@ From our scatterplot, we see that as we increase the number of stars, the amount
 
 From this pivot table, we are better able to understand the relationship that minutes and ratings share. We can see that on average amount of time it takes for a recipe is slightly higher in lower star ratings, however, what we also notice is that the standard deviation of minutes is significantly higher for four and five-star reviews.
 
-# NMAR Analysis <a name="NMAR Analysis"></a>
+# NMAR Analysis <a name="nmaranalysis"></a>
 
 The 'rating' column in the dataset likely exhibits NMAR (Not Missing At Random) characteristics, as the absence of a rating (originally recorded as zero and replaced with NaN) could be influenced by users' dissatisfaction with the recipe, implying that the missingness is related to the unobserved rating itself. To better understand this missingness and potentially shift it to MAR (Missing At Random), additional data such as user feedback on why they chose not to rate, or detailed interaction data like time spent on the recipe page, would be invaluable. This data could reveal whether the absence of a rating is due to factors observable in the data, like recipe complexity, rather than the unobserved quality of the recipe.
 
