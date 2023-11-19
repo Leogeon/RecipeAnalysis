@@ -180,7 +180,7 @@ The p-value of 0.0 is highly significant, indicating that the observed differenc
 This result suggests a strong dependency of the missingness in the 'rating' column on the 'contributor_id' column. In other words, the likelihood of a rating being missing seems to be related to which contributor submitted the recipe.
 In summary, while there appears to be no significant relationship between the missingness in 'rating' and the 'minutes' column, there is a significant relationship between the missingness in 'rating' and the 'contributor_id' column. This insight can be particularly useful for understanding the patterns and potential biases in your data collection or entry process.
 
-# Hypothesis Testing <a name="hypothesistesting></a>
+# Hypothesis Testing <a name="hypothesistesting"></a>
 Our area of focus for this data set is to find the relationship between the cooking time and the rating that the recipe receives.
 
 To answer this question, we compared the ratings of recipes that took longer compared to those that required a shorter amount of time. We found that the median time of recipes was 35 minutes and thus categorized recipes  as long if they took longer than 35 minutes (not inclusive), and short if they took less (inclusive). We will conduct a permutation test.
