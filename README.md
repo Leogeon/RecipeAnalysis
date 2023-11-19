@@ -102,7 +102,6 @@ The 'rating' column in the dataset likely exhibits NMAR (Not Missing At Random) 
 
 # Missingness Dependency <a name="missingnessdependency"></a>
 ```
-{ 
 new['rating_missing'] = new['rating'].isnull().astype(int)
 def permutation_test(df, column_to_test, missingness_column, n_permutations=1000):
     # Calculate the initial difference in means (for numeric columns) or proportions (for categorical columns)
@@ -112,7 +111,7 @@ def permutation_test(df, column_to_test, missingness_column, n_permutations=1000
         original_diff = df.groupby([column_to_test, missingness_column]).size().unstack().fillna(0)
         original_diff = original_diff.div(original_diff.sum(axis=1), axis=0)
         original_diff = original_diff.diff(axis=1).iloc[:, -1].abs().sum()
-    "Permutation"
+    ###Permutation
     diffs = []
     for _ in range(n_permutations):
         # Shuffling the missingness indicator
@@ -129,7 +128,7 @@ def permutation_test(df, column_to_test, missingness_column, n_permutations=1000
 
         diffs.append(diff)
 
-    "Calculating the p-value"
+    ###Calculating the p-value
     if df[column_to_test].dtype in [np.int64, np.float64]:  # Numeric column
         p_value = np.mean([abs(diff) >= abs(original_diff) for diff in diffs])
     else:  # Categorical column
@@ -149,9 +148,16 @@ print('original_diff_minutes: ', original_diff_minutes, '\n'
       'original_diff_contributor: ', original_diff_contributor, '\n'
       'mean_diff_contributor: ', mean_diff_contributor, '\n'
       'p_value_contributor: ', p_value_contributor)
-}
 ```
 results:
+
+| original_diff_minutes | 51.45237039852127 |
+| mean_diff_minutes | -1.2053569146154905 |
+| p_value_minutes | 0.108  |
+| original_diff_contributor | 17338796.675696477 |
+| mean_diff_contributor | -59804.915568635064  |
+| p_value_contributor | 0.0 |
+
 original_diff_minutes:  51.45237039852127 
 mean_diff_minutes:  -1.2053569146154905 
 p_value_minutes:  0.108 
