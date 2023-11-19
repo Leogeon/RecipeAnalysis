@@ -152,8 +152,8 @@ print('original_diff_minutes: ', original_diff_minutes, '\n'
 results:
 
 | original_diff_minutes | 51.45237039852127 |
-| mean_diff_minutes | -1.2053569146154905 |
-| p_value_minutes | 0.108  |
+| mean_diff_minutes | -2.0953569146154905 |
+| p_value_minutes | 0.101  |
 | original_diff_contributor | 17338796.675696477 |
 | mean_diff_contributor | -59804.915568635064  |
 | p_value_contributor | 0.0 |
@@ -170,8 +170,8 @@ However, the average difference obtained from the permutation test is -2.09, whi
 The p-value of 0.101 suggests that the observed difference is not statistically significant at a typical alpha level of 0.05. This implies that there is not enough evidence to conclude that the missingness in the 'rating' column depends on the 'minutes' column.
 
 ### 'contributor_id' (Categorical Column):
-Original Difference in Proportions: 17,338,796.68
-Average Difference in Proportions from Permutations: -40,884.52
+Original Difference in Proportions: 17338796.68
+Average Difference in Proportions from Permutations: -59804.91
 P-value: 0.0
 Interpretation:
 
