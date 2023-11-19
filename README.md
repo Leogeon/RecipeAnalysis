@@ -101,7 +101,9 @@ From this pivot table, we are better able to understand the relationship that mi
 The 'rating' column in the dataset likely exhibits NMAR (Not Missing At Random) characteristics, as the absence of a rating (originally recorded as zero and replaced with NaN) could be influenced by users' dissatisfaction with the recipe, implying that the missingness is related to the unobserved rating itself. To better understand this missingness and potentially shift it to MAR (Missing At Random), additional data such as user feedback on why they chose not to rate, or detailed interaction data like time spent on the recipe page, would be invaluable. This data could reveal whether the absence of a rating is due to factors observable in the data, like recipe complexity, rather than the unobserved quality of the recipe.
 
 # Missingness Dependency <a name="missingnessdependency"></a>
-{ new['rating_missing'] = new['rating'].isnull().astype(int)
+```
+{ 
+new['rating_missing'] = new['rating'].isnull().astype(int)
 def permutation_test(df, column_to_test, missingness_column, n_permutations=1000):
     # Calculate the initial difference in means (for numeric columns) or proportions (for categorical columns)
     if df[column_to_test].dtype in [np.int64, np.float64]:  # Numeric column
@@ -148,7 +150,7 @@ print('original_diff_minutes: ', original_diff_minutes, '\n'
       'mean_diff_contributor: ', mean_diff_contributor, '\n'
       'p_value_contributor: ', p_value_contributor)
 }
-
+```
 results:
 original_diff_minutes:  51.45237039852127 
 mean_diff_minutes:  -1.2053569146154905 
