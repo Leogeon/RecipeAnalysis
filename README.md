@@ -158,13 +158,6 @@ results:
 | mean_diff_contributor | -59804.915568635064  |
 | p_value_contributor | 0.0 |
 
-original_diff_minutes:  51.45237039852127 
-mean_diff_minutes:  -1.2053569146154905 
-p_value_minutes:  0.108 
-original_diff_contributor:  17338796.675696477 
-mean_diff_contributor:  -59804.915568635064 
-p_value_contributor:  0.0
-
 ## Interpretation
 ### 'minutes' (Numeric Column):
 Original Difference in Means: 51.45
