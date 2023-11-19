@@ -101,8 +101,68 @@ From this pivot table, we are better able to understand the relationship that mi
 The 'rating' column in the dataset likely exhibits NMAR (Not Missing At Random) characteristics, as the absence of a rating (originally recorded as zero and replaced with NaN) could be influenced by users' dissatisfaction with the recipe, implying that the missingness is related to the unobserved rating itself. To better understand this missingness and potentially shift it to MAR (Missing At Random), additional data such as user feedback on why they chose not to rate, or detailed interaction data like time spent on the recipe page, would be invaluable. This data could reveal whether the absence of a rating is due to factors observable in the data, like recipe complexity, rather than the unobserved quality of the recipe.
 
 # Missingness Dependency <a name="missingnessdependency"></a>
+{
+new['rating_missing'] = new['rating'].isnull().astype(int)
 
-## 'minutes' (Numeric Column):
+# Function for performing a permutation test
+def permutation_test(df, column_to_test, missingness_column, n_permutations=1000):
+    # Calculate the initial difference in means (for numeric columns) or proportions (for categorical columns)
+    if df[column_to_test].dtype in [np.int64, np.float64]:  # Numeric column
+        original_diff = df.groupby(missingness_column)[column_to_test].mean().diff().iloc[-1]
+    else:  # Categorical column
+        original_diff = df.groupby([column_to_test, missingness_column]).size().unstack().fillna(0)
+        original_diff = original_diff.div(original_diff.sum(axis=1), axis=0)
+        original_diff = original_diff.diff(axis=1).iloc[:, -1].abs().sum()
+
+    # Permutation
+    diffs = []
+    for _ in range(n_permutations):
+        # Shuffling the missingness indicator
+        shuffled_missingness = df[missingness_column].sample(frac=1, replace=False).reset_index(drop=True)
+        df['shuffled_missingness'] = shuffled_missingness
+
+        # Recalculating the difference
+        if df[column_to_test].dtype in [np.int64, np.float64]:  # Numeric column
+            diff = df.groupby('shuffled_missingness')[column_to_test].mean().diff().iloc[-1]
+        else:  # Categorical column
+            diff = df.groupby([column_to_test, 'shuffled_missingness']).size().unstack().fillna(0)
+            diff = diff.div(diff.sum(axis=1), axis=0)
+            diff = diff.diff(axis=1).iloc[:, -1].abs().sum()
+
+        diffs.append(diff)
+
+    # Calculating the p-value
+    if df[column_to_test].dtype in [np.int64, np.float64]:  # Numeric column
+        p_value = np.mean([abs(diff) >= abs(original_diff) for diff in diffs])
+    else:  # Categorical column
+        p_value = np.mean([diff >= original_diff for diff in diffs])
+
+    return original_diff, np.mean(diffs), p_value
+
+# Permutation test for 'minutes' (numeric column)
+original_diff_minutes, mean_diff_minutes, p_value_minutes = permutation_test(new, 'minutes', 'rating_missing')
+
+# Permutation test for 'contributor_id' (categorical column)
+original_diff_contributor, mean_diff_contributor, p_value_contributor = permutation_test(new, 'contributor_id', 'rating_missing')
+
+print('original_diff_minutes: ', original_diff_minutes, '\n'
+      'mean_diff_minutes: ', mean_diff_minutes, '\n'
+      'p_value_minutes: ', p_value_minutes, '\n'
+      'original_diff_contributor: ', original_diff_contributor, '\n'
+      'mean_diff_contributor: ', mean_diff_contributor, '\n'
+      'p_value_contributor: ', p_value_contributor)
+}
+
+results:
+original_diff_minutes:  51.45237039852127 
+mean_diff_minutes:  -1.2053569146154905 
+p_value_minutes:  0.108 
+original_diff_contributor:  17338796.675696477 
+mean_diff_contributor:  -59804.915568635064 
+p_value_contributor:  0.0
+
+## Interpretation
+### 'minutes' (Numeric Column):
 Original Difference in Means: 51.45
 Average Difference in Means from Permutations: -2.09
 P-value: 0.101
@@ -112,7 +172,7 @@ The original difference in the means of 'minutes' between the groups (where 'rat
 However, the average difference obtained from the permutation test is -2.09, which indicates that such a difference could occur by chance.
 The p-value of 0.101 suggests that the observed difference is not statistically significant at a typical alpha level of 0.05. This implies that there is not enough evidence to conclude that the missingness in the 'rating' column depends on the 'minutes' column.
 
-## 'contributor_id' (Categorical Column):
+### 'contributor_id' (Categorical Column):
 Original Difference in Proportions: 17,338,796.68
 Average Difference in Proportions from Permutations: -40,884.52
 P-value: 0.0
