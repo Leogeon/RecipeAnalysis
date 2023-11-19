@@ -103,8 +103,6 @@ The 'rating' column in the dataset likely exhibits NMAR (Not Missing At Random) 
 # Missingness Dependency <a name="missingnessdependency"></a>
 {
 new['rating_missing'] = new['rating'].isnull().astype(int)
-
-# Function for performing a permutation test
 def permutation_test(df, column_to_test, missingness_column, n_permutations=1000):
     # Calculate the initial difference in means (for numeric columns) or proportions (for categorical columns)
     if df[column_to_test].dtype in [np.int64, np.float64]:  # Numeric column
@@ -114,7 +112,7 @@ def permutation_test(df, column_to_test, missingness_column, n_permutations=1000
         original_diff = original_diff.div(original_diff.sum(axis=1), axis=0)
         original_diff = original_diff.diff(axis=1).iloc[:, -1].abs().sum()
 
-    # Permutation
+    "Permutation"
     diffs = []
     for _ in range(n_permutations):
         # Shuffling the missingness indicator
@@ -131,7 +129,7 @@ def permutation_test(df, column_to_test, missingness_column, n_permutations=1000
 
         diffs.append(diff)
 
-    # Calculating the p-value
+    "Calculating the p-value"
     if df[column_to_test].dtype in [np.int64, np.float64]:  # Numeric column
         p_value = np.mean([abs(diff) >= abs(original_diff) for diff in diffs])
     else:  # Categorical column
@@ -139,10 +137,10 @@ def permutation_test(df, column_to_test, missingness_column, n_permutations=1000
 
     return original_diff, np.mean(diffs), p_value
 
-# Permutation test for 'minutes' (numeric column)
+"Permutation test for 'minutes' (numeric column)"
 original_diff_minutes, mean_diff_minutes, p_value_minutes = permutation_test(new, 'minutes', 'rating_missing')
 
-# Permutation test for 'contributor_id' (categorical column)
+"Permutation test for 'contributor_id' (categorical column)"
 original_diff_contributor, mean_diff_contributor, p_value_contributor = permutation_test(new, 'contributor_id', 'rating_missing')
 
 print('original_diff_minutes: ', original_diff_minutes, '\n'
@@ -183,7 +181,7 @@ The p-value of 0.0 is highly significant, indicating that the observed differenc
 This result suggests a strong dependency of the missingness in the 'rating' column on the 'contributor_id' column. In other words, the likelihood of a rating being missing seems to be related to which contributor submitted the recipe.
 In summary, while there appears to be no significant relationship between the missingness in 'rating' and the 'minutes' column, there is a significant relationship between the missingness in 'rating' and the 'contributor_id' column. This insight can be particularly useful for understanding the patterns and potential biases in your data collection or entry process.
 
-# Hypothesis Testing <a name="Hypothesis Testing"></a>
+# Hypothesis Testing <a name="hypothesistesting></a>
 Our area of focus for this data set is to find the relationship between the cooking time and the rating that the recipe receives.
 
 To answer this question, we compared the ratings of recipes that took longer compared to those that required a shorter amount of time. We found that the median time of recipes was 35 minutes and thus categorized recipes  as long if they took longer than 35 minutes (not inclusive), and short if they took less (inclusive). We will conduct a permutation test.
